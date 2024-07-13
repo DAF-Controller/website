@@ -14,8 +14,8 @@
             background-color: #f0f0f0;
         }
         #flower {
-            width: 100px;
-            height: 100px;
+            width: 200px;
+            height: 200px;
             background-image: url('/images/flower.png'); 
             background-size: cover;
             margin-bottom: 20px;
@@ -44,6 +44,11 @@
         #message {
             margin-top: 20px;
         }
+        #controlButton {
+            margin-top: 30px;
+            padding: 10px 20px;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
@@ -52,7 +57,7 @@
         <div id="target"></div>
         <div id="gauge"></div>
     </div>
-    <button onclick="stopGauge()">멈추기</button>
+    <button id="controlButton" onclick="stopGauge()">멈추기</button>
     <div id="message"></div>
 
     <script>
@@ -61,9 +66,11 @@
         let target = document.getElementById('target');
         let message = document.getElementById('message');
         let flower = document.getElementById('flower');
+        let controlButton = document.getElementById('controlButton');
         let gaugeWidth = 0;
         let speed = Math.random() * 2 + 2; 
         let direction = 1;
+        let gaugeInterval;
 
         function randomTargetPosition() {
             let targetWidth = Math.random() * 50 + 25; 
@@ -95,18 +102,34 @@
             let targetRight = targetLeft + target.offsetWidth;
             if (gaugeWidth > targetLeft && gaugeWidth < targetRight) {
                 message.innerText = "꽃이 살았습니다!";
-                flower.style.backgroundImage = "url('/images/flower_alive.png')"; 
+                flower.style.backgroundImage = "url('/images/flower_survive.png')"; 
             } else if (gaugeWidth < targetLeft) {
                 message.innerText = "물을 좀 더 주지...";
-                flower.style.backgroundImage = "url('/images/flower_dead.png')"; 
+                flower.style.backgroundImage = "url('/images/flower_dead1.png')"; 
             } else {
                 message.innerText = "물을 너무 많이 줘서...";
-                flower.style.backgroundImage = "url('/images/flower_dead.png')"; 
+                flower.style.backgroundImage = "url('/images/flower_dead2.png')"; 
             }
+            controlButton.innerText = "다시하기";
+            controlButton.onclick = resetGame;
         }
 
-        randomTargetPosition();
-        let gaugeInterval = setInterval(moveGauge, 20);
+        function resetGame() {
+            gaugeWidth = 0;
+            gauge.style.width = gaugeWidth + 'px';
+            message.innerText = "";
+            flower.style.backgroundImage = "url('/images/flower.png')";
+            controlButton.innerText = "멈추기";
+            controlButton.onclick = stopGauge;
+            startGame();
+        }
+
+        function startGame() {
+            randomTargetPosition();
+            gaugeInterval = setInterval(moveGauge, 20);
+        }
+
+        startGame();
     </script>
 </body>
 </html>
