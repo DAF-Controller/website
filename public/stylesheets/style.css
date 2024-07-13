@@ -1,8 +1,50 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f0f0;
 }
 
-a {
-  color: #00B7FF;
+#flower {
+  width: 200px;
+  height: 200px;
+  background-image: url('/images/flower.png');
+  background-size: cover;
+  margin-bottom: 20px;
+}
+
+#gaugeContainer {
+  width: 300px;
+  height: 30px;
+  border: 2px solid #000;
+  position: relative;
+  overflow: hidden;
+}
+
+#gauge {
+  height: 100%;
+  background-color: green;
+  position: absolute;
+  left: 0;
+  width: 0;
+  z-index: 1;
+}
+
+#target {
+  height: 100%;
+  background-color: rgba(255, 0, 0, 0.5);
+  position: absolute;
+  z-index: 2;
+}
+
+#message {
+  margin-top: 20px;
+}
+
+#controlButton {
+  margin-top: 30px;
+  padding: 10px 20px;
+  font-size: 18px;
 }
